@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 int findtensplaces(int i, char *s)
 {
 	double tens = 1;
