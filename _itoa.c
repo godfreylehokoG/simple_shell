@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * _itoa - converts int to 
+ * @i: int to be converted to str
+ * @t: converted str
+ * Return: void fuction.
+
 void _itoa(int i, char *t)
 {
 	int j;
