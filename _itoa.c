@@ -5,6 +5,7 @@
  * @i: int to be converted to str
  * @t: address to the converted str
  * Return: void fuction.
+ */
 
 void _itoa(int i, char *t)
 {
