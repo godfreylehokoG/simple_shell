@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * findcommand - searches for file in path
+ * @head: pointer to the linked list of the path
+ * @commandinput: command to check in path
+ * Return: address to command in in path if found, or null if not.
+ */
+
 char *findcommand(PDIRECT *head, char *commandinput)
 {
 
