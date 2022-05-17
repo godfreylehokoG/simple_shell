@@ -95,3 +95,38 @@ void __exit(int errnum, char **p, char *getline, PDIRECT *head, char *fc, char *
 	exit(errnum);
 }
 
+/**
+ *  * linkedpath - builds a linked list of the PATH
+ *   * Return: pointer to head of the linked list
+ *    */
+PDIRECT *linkedpath(void)
+{
+	char *path, *token = NULL, *delim = ":";
+	PDIRECT *head, *temp, *temp2;
+
+	head = malloc(sizeof(PDIRECT));
+	if (!head)
+		return (NULL);
+	head->next = NULL;
+
+	path = _strdup(_getenv("PATH"));
+
+	token = _strtok(path, delim);
+	head->s = token;
+
+	temp = head;
+	while (token != NULL)
+	{
+		token = _strtok(NULL, delim);
+		if (token != NULL)
+		{
+			temp2 = malloc(sizeof(PDIRECT));
+			temp2->s = token;
+			temp2->next = NULL;
+			temp->next = temp2;
+			temp = temp2;
+		}
+	}
+	return (head);
+}
+
