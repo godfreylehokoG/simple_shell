@@ -46,7 +46,6 @@ int _strcmp(char *s1, char *s2);
 int tokencount(char *s);
 char *_strtok(char *s, char *delim);
 PDIRECT *linkedpath(void);
-char *findcommand(PDIRECT *head, char *commandinput);
 void errmessage(char **c, char *p, int i);
 void CDerrmessage(char **c, char *p, int i);
 int changedir(char **p, CHDIRECT *predirect);

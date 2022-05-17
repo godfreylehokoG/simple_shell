@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 char *findcommand(PDIRECT *head, char *commandinput)
 {
 
