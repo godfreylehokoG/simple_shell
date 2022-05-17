@@ -14,5 +14,6 @@
 char _get_line(FILE *fp);
 void errmessage(char **c, char *p, int i);
 void _itoa(int i, char *t);
+void CDerrmessage(char **c, char *p, int i);
 
 #endif
