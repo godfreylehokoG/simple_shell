@@ -6,6 +6,7 @@
  * @s: str to be broken into tokens
  * @delim: specifies delimiter to split the str by
  * Return: address of the next token.
+ */
 
 char *_strtok(char *s, char *delim)
 {
