@@ -1,48 +1,9 @@
 #include "shell.h"
 
 /**
- * _strcmp - compares two strings
- * @s1: 
- * @s2: 
- */
-
-int _strcmp(char *s1, char *s2)
-{
-	int i = 0;
-
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	if (s1[i] == '\0' && s2[i] == '\0')
-		return (0);
-	return (-1);
-}
-
-
-char *_strdup(char *s)
-{
-	char *dup = NULL;
-	unsigned int i, length = 0;
-
-	length = _strlen(s);
-	dup = malloc(sizeof(char) * length + 1);
-	if (!dup)
-		return (NULL);
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		dup[i] = s[i];
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-/**
- * checkexit - implements exit builtin and exits with supplied error #
- * @token: user command strings
- * Return: If user entered exit, returns entered errnum
+ * checkexit - replicates exits
+ * @token: given command str
+ * Return: returns entered errnum
  */
 
 int checkexit(char **token)
@@ -65,12 +26,12 @@ int checkexit(char **token)
 }
 
 /**
- * __exit - gracefully exits by freeing all malloced memory
- * @errnum: exits with this error number
- * @p: heap array of char pointers used to store comands
+ * __exit - free all allocated memory
+ * @errnum: exit error number
+ * @p: heap array of char pointers used to store commands
  * @getline: pointer to malloc space from getline function call
  * @head: head of linked list
- * @fc: malloced string path/to/file from PATH function
+ * @fc: pointer to allocated memory
  * @predirect: malloc string of previous directory
  */
 
@@ -96,9 +57,10 @@ void __exit(int errnum, char **p, char *getline, PDIRECT *head, char *fc, char *
 }
 
 /**
- *  * linkedpath - builds a linked list of the PATH
- *   * Return: pointer to head of the linked list
- *    */
+ * linkedpath - creates a linked list path
+ * Return: address of the list head.
+ */
+
 PDIRECT *linkedpath(void)
 {
 	char *path, *token = NULL, *delim = ":";
@@ -130,3 +92,22 @@ PDIRECT *linkedpath(void)
 	return (head);
 }
 
+/**
+ * findtensplaces - 
+ * @i:
+ * @s:
+ * Return:
+ */
+
+int findtensplaces(int i, char *s)
+{
+	double tens = 1;
+
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		tens *= 10;
+		i++;
+	}
+	tens /= 10;
+	return ((int) tens);
+}
