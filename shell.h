@@ -1,57 +1,78 @@
-#ifndef CESTLAVIE
-#define CESTLAVIE
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
-#include <sys/types.h>
 #include <unistd.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
-#include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
-/**
- * struct chdirect - struct to implement cd builtin
- * @s: directory path
- * @boo: boolean to indicate if cd was called
- */
-
-typedef struct chdirect
-{
-	char *s;
-	int boo;
-
-} CHDIRECT;
-
-/**
- * struct direc - struct to hold linked list of PATH values
- * @s: directory path
- * @next: pointer to next node
- */
-
-typedef struct direc
-{
-	char *s;
-	struct direc *next;
-
-} PDIRECT;
+#define BUFFER 1024
+#define TRUE 1
+#define PROMPT "$ "
+/* error strings */
+#define ERR_MALLOC "Unable to malloc space\n"
+#define ERR_FORK "Unable to fork and create child process\n"
+#define ERR_PATH "No such file or directory\n"
 extern char **environ;
 
+/**
+ * struct list_s - linked list of variables
+ * @value: value
+ * @next: pointer to next node
+ *
+ * Description: generic linked list struct for variables.
+**/
+typedef struct list_s
+{
+	char *value;
+	struct list_s *next;
+} list_s;
+
+/**
+ * struct built_s - linked list of builtins
+ * @name: name of builtin
+ * @p: pointer to function
+ *
+ * Description: struct for builtin functions.
+**/
+typedef struct built_s
+{
+	char *name;
+	int (*p)(void);
+} built_s;
+
+void prompt(int fd, struct stat buf);
+char *_getline(FILE *fp);
+char **tokenizer(char *str);
+char *_which(char *command, char *fullpath, char *path);
+int child(char *fullpath, char **tokens);
+void errors(int error);
+
+/* utility functions */
+void _puts(char *str);
 int _strlen(char *s);
-int _atoi(char *s);
-void _itoa(int i, char *t);
-char *_strdup(char *s);
-int _strcmp(char *s1, char *s2);
-int tokencount(char *s);
-char *_strtok(char *s, char *delim);
-PDIRECT *linkedpath(void);
-char *findcommand(PDIRECT *head, char *commandinput);
-void errmessage(char **c, char *p, int i);
-void CDerrmessage(char **c, char *p, int i);
-int changedir(char **p, CHDIRECT *predirect);
+int _strcmp(char *name, char *variable, unsigned int length);
+int _strncmp(char *name, char *variable, unsigned int length);
+char *_strcpy(char *dest, char *src);
+
+/* prototypes for builtins */
+int shell_env(void);
+int shell_exit(void);
+int builtin_execute(char **tokens);
+int shell_num_builtins(built_s builtin[]);
+
+/* prototypes for the helper functions for path linked list */
 char *_getenv(const char *name);
-int checkenv(char **p);
-int checkexit(char **token);
-void __exit(int errnum, char **p, char *getline, PDIRECT *head, char *fc, char *predirect);
-#endif
+char **copy_env(char **environ_copy, unsigned int environ_length);
+list_s *pathlist(char *variable, list_s *head);
+
+/* prototypes for free functions */
+void free_all(char **tokens, char *path, char *line, char *fullpath, int flag);
+void free_dp(char **array, unsigned int length);
+#endif /*SHELL_H */
+
+
 
