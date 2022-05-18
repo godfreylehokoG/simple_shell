@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * changedir - changes working directory to user entered path
- * @p: pointer to user entered commands
+ * changedir - changes directory to specified directory
+ * @p: address of the entered command
  * @predirect: the previous directory
  * Return: 1 if successful
  */
@@ -17,17 +17,13 @@ int changedir(char **p, CHDIRECT *predirect)
 
 	if (_strcmp(p[0], cd) == 0)
 	{
-
 		predirect->boo = 1;
 		if (p[1] == NULL ||  _strcmp(p[1], tilde) == 0)
 		{
-
 			s = _getenv("HOME");
 			free(predirect->s);
 			predirect->s = _strdup(_getenv("PWD"));
 			chdir(s);
-
-
 		}
 		else if (_strcmp(p[1], dash) == 0)
 		{
@@ -50,7 +46,6 @@ int changedir(char **p, CHDIRECT *predirect)
 			{
 				free(predirect->s);
 				predirect->s = temp;
-
 			}
 		}
 	}
@@ -58,10 +53,11 @@ int changedir(char **p, CHDIRECT *predirect)
 }
 
 /**
- * *_getenv - returns an environmental variable value
+ * _getenv - returns an environmental variable value
  * @name: key to access the env value
  * Return: pointer to the value
  */
+
 char *_getenv(const char *name)
 {
 	int i = 0, j, len = 0;
@@ -75,7 +71,6 @@ char *_getenv(const char *name)
 		while (name[len] != '\0')
 			len++;
 	}
-
 	while (environ[i])
 	{
 
@@ -93,11 +88,13 @@ char *_getenv(const char *name)
 
 	return (NULL);
 }
+
 /**
  * checkenv - checks to see if the token is the env
  * @p: user supplies command line arguments
  * Return: returns 1 if user entered the command; zero otherwise
  */
+
 int checkenv(char **p)
 {
 	char command[] = "env";
@@ -113,6 +110,5 @@ int checkenv(char **p)
 		}
 		return (1);
 	}
-
 	return (0);
 }

@@ -1,14 +1,15 @@
-#ifndef CESTLAVIE
-#define CESTLAVIE
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <fcntl.h>
-#include <sys/types.h>
+#include <stdlib.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
+#include <string.h>
 #include <signal.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 /**
  * struct chdirect - struct to implement cd builtin
@@ -37,15 +38,14 @@ typedef struct direc
 } PDIRECT;
 extern char **environ;
 
+int _putchar(char c);
 int _strlen(char *s);
 int _atoi(char *s);
-void _itoa(int i, char *t);
 char *_strdup(char *s);
 int _strcmp(char *s1, char *s2);
 int tokencount(char *s);
 char *_strtok(char *s, char *delim);
 PDIRECT *linkedpath(void);
-char *findcommand(PDIRECT *head, char *commandinput);
 void errmessage(char **c, char *p, int i);
 void CDerrmessage(char **c, char *p, int i);
 int changedir(char **p, CHDIRECT *predirect);
@@ -53,5 +53,11 @@ char *_getenv(const char *name);
 int checkenv(char **p);
 int checkexit(char **token);
 void __exit(int errnum, char **p, char *getline, PDIRECT *head, char *fc, char *predirect);
-#endif
 
+char _get_line(FILE *fp);
+void errmessage(char **c, char *p, int i);
+void _itoa(int i, char *t);
+void CDerrmessage(char **c, char *p, int i);
+char *findcommand(PDIRECT *head, char *commandinput);
+
+#endif
