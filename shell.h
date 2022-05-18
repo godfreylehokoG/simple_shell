@@ -1,78 +1,58 @@
 #ifndef SHELL_H
 #define SHELL_H
+#define _GNU_SOURCE
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
-
-#define BUFFER 1024
-#define TRUE 1
-#define PROMPT "$ "
-/* error strings */
-#define ERR_MALLOC "Unable to malloc space\n"
-#define ERR_FORK "Unable to fork and create child process\n"
-#define ERR_PATH "No such file or directory\n"
-extern char **environ;
+#include <string.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <errno.h>
+#define DELIMS " \t\0"
 
 /**
- * struct list_s - linked list of variables
- * @value: value
- * @next: pointer to next node
+ *struct path_s - linked list structure for PATH variable
+ *@directory: directory to search
+ *@next: pointer to the next node
  *
- * Description: generic linked list struct for variables.
-**/
-typedef struct list_s
+ *Description: singly linked list node structure for PATH variable
+ */
+
+typedef struct path_s
 {
-	char *value;
-	struct list_s *next;
-} list_s;
+	char *directory;
+	struct path_s *next;
+} path_t;
 
-/**
- * struct built_s - linked list of builtins
- * @name: name of builtin
- * @p: pointer to function
- *
- * Description: struct for builtin functions.
-**/
-typedef struct built_s
-{
-	char *name;
-	int (*p)(void);
-} built_s;
+void printprompt(void);
+int _strlen(char *buf);
+int printpath(char *path);
+void print_path(char *str);
+int _strcmp(char *s1, char *s2);
+char *_strdup(char *str);
+char *str_concat(char *s1, char *s2);
+char *_concat(char *concatenate, char *s1, char *s2);
+int _atoi(char *s);
+char *printint(int num);
+path_t *create_ll(char *str);
+path_t *fill_list(char *str, path_t *list);
+void free_list(path_t *head);
+void free_tokens(char **tokenarray);
+void free_all(char *line, char *newline, char **tokenarray);
+int ctrld(char *line);
+void ctrlc(int signum);
+void no_file_er(char **argv, char **ar, int cmdnum, char *line, char *nline);
+int exit_op(char **array, char *line, char *newline, int cdnum);
+int cd_op(char **array, char **env);
+int env_op(char **env);
+char **tokensplit(char *line);
+int exec(char **ar, char **env, char **av, char *line, char *nline, int cdnum);
+char *_getenv(const char *name, char **env);
+char **_realloccharss(char **ptr, int n);
+char *_reallocchar(char *ptr);
+char *path_handler(char *str, char **env);
 
-void prompt(int fd, struct stat buf);
-char *_getline(FILE *fp);
-char **tokenizer(char *str);
-char *_which(char *command, char *fullpath, char *path);
-int child(char *fullpath, char **tokens);
-void errors(int error);
-
-/* utility functions */
-void _puts(char *str);
-int _strlen(char *s);
-int _strcmp(char *name, char *variable, unsigned int length);
-int _strncmp(char *name, char *variable, unsigned int length);
-char *_strcpy(char *dest, char *src);
-
-/* prototypes for builtins */
-int shell_env(void);
-int shell_exit(void);
-int builtin_execute(char **tokens);
-int shell_num_builtins(built_s builtin[]);
-
-/* prototypes for the helper functions for path linked list */
-char *_getenv(const char *name);
-char **copy_env(char **environ_copy, unsigned int environ_length);
-list_s *pathlist(char *variable, list_s *head);
-
-/* prototypes for free functions */
-void free_all(char **tokens, char *path, char *line, char *fullpath, int flag);
-void free_dp(char **array, unsigned int length);
-#endif /*SHELL_H */
-
-
-
+#endif
