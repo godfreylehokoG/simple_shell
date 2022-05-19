@@ -1,11 +1,10 @@
 #include "shell.h"
 
 /**
- * _getline - feeds an entire line of input to the buffer
- * @fp: a single line of input
- * Return: the line of string from input
+ * _getline - puts input from user into buffer line
+ * @fp: buffer for user input
+ * Return: buffer with user input
  */
-
 char *_getline(FILE *fp)
 {
 	char *line;
@@ -23,3 +22,4 @@ char *_getline(FILE *fp)
 
 	return (line);
 }
+
