@@ -5,6 +5,7 @@
  * @fp: buffer for user input
  * Return: buffer with user input
  */
+
 char *_getline(FILE *fp)
 {
 	char *line;
@@ -14,12 +15,11 @@ char *_getline(FILE *fp)
 	line = NULL;
 	len = 0;
 	read = getline(&line, &len, fp);
-	if (read == -1)
+	if (read == EOF || read == -1)
 	{
-		free(line);
+		ctrld(line);
 		exit(EXIT_SUCCESS);
 	}
 
 	return (line);
 }
-

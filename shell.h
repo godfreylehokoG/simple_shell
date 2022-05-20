@@ -44,35 +44,31 @@ typedef struct built_s
 	int (*p)(void);
 } built_s;
 
+int ctrld(char *line);
+void ctrlc(int signum);
+void printprompt(void);
 void prompt(int fd, struct stat buf);
 char *_getline(FILE *fp);
 char **tokenizer(char *str);
 char *_which(char *command, char *fullpath, char *path);
 int child(char *fullpath, char **tokens);
 void errors(int error);
-
-/* utility functions */
 void _puts(char *str);
 int _strlen(char *s);
 int _strcmp(char *name, char *variable, unsigned int length);
 int _strncmp(char *name, char *variable, unsigned int length);
 char *_strcpy(char *dest, char *src);
-
-/* prototypes for builtins */
 int shell_env(void);
 int shell_exit(void);
 int builtin_execute(char **tokens);
 int shell_num_builtins(built_s builtin[]);
-
-/* prototypes for the helper functions for path linked list */
 char *_getenv(const char *name);
 char **copy_env(char **environ_copy, unsigned int environ_length);
 list_s *pathlist(char *variable, list_s *head);
-
-/* prototypes for free functions */
 void free_all(char **tokens, char *path, char *line, char *fullpath, int flag);
 void free_dp(char **array, unsigned int length);
-#endif /*SHELL_H */
+
+#endif
 
 
 
