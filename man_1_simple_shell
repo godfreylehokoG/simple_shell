@@ -1,0 +1,12 @@
+.\" Manpage for simpleshell
+.SH NAME
+simpleshell \- command interpreter (shell) 
+.SH SYNOPSIS
+simpleshell
+.SH DESCRIPTION
+simmpleshell is a custom command interpreter for the system. simpleshell is based off of dash (sh), but does not implement all of its features. This man page is not intended to be a tutorial or a complete specification of the shell. 
+.SH OPTIONS
+The simpleshell does not take any options. However, you can pipe commands into the program in the non-active mode.
+.SH SEE ALSO
+dash(1), csh(1), environ(7)
+
