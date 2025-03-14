@@ -17,5 +17,6 @@ env        | Print environment
 exit       | Exit simple shell  
 
 ### Authors
-Koketso Malatji [Github] (https://github.com/KoketsoMalatji)
 Lehlogonolo Lehoko [Github] (https://github.com/godfreylehokoG)
+Koketso Malatji [Github] (https://github.com/KoketsoMalatji)
+
