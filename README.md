@@ -18,5 +18,3 @@ exit       | Exit simple shell
 
 ### Authors
 Lehlogonolo Lehoko [Github] (https://github.com/godfreylehokoG)
-Koketso Malatji [Github] (https://github.com/KoketsoMalatji)
-
